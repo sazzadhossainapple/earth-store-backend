@@ -26,3 +26,5 @@ connectDB().then(() => {
         console.log(`App is running on port ${port}`.yellow.bold);
     });
 });
+
+module.exports = { connectDB };
