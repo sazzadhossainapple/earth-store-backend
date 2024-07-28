@@ -360,6 +360,46 @@ const sendEmail = (email, name, token) => {
     }
 };
 
+/**
+ * Check whether logged in user is admin
+ *
+ * URI: /api/user/admin
+ *
+ * @param {req} req
+ * @param {res} res
+ * @param {next} next
+ * @returns
+ */
+
+const checkIfAdmin = asyncWrapper(async (req, res) => {
+    let { email } = req.user;
+
+    const user = await findUserByEmail(email);
+
+    if (user.role === 'Admin') res.success(true);
+    else res.success(false);
+});
+
+/**
+ * Check whether logged in user is customer
+ *
+ * URI: /api/user/customer
+ *
+ * @param {req} req
+ * @param {res} res
+ * @param {next} next
+ * @returns
+ */
+
+const checkIfUser = asyncWrapper(async (req, res) => {
+    let { email } = req.user;
+
+    const user = await findUserByEmail(email);
+
+    if (user?.role === 'User') res.success(true);
+    else res.success(false);
+});
+
 module.exports = {
     index,
     store,
@@ -371,4 +411,6 @@ module.exports = {
     updatePassword,
     forgetPassword,
     resetPassword,
+    checkIfAdmin,
+    checkIfUser,
 };

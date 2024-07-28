@@ -15,6 +15,8 @@ const {
     updatePassword,
     forgetPassword,
     resetPassword,
+    checkIfAdmin,
+    checkIfUser,
 } = userController;
 
 // user application routes here...
@@ -22,6 +24,8 @@ const {
 router.route('/').get(auth, index).post(store);
 router.route('/login').post(login);
 router.route('/me').get(auth, getMe);
+router.route('/customer').get(auth, checkIfUser);
+router.route('/admin').get(auth, checkIfAdmin);
 router.route('/update-password').post(auth, updatePassword);
 router.route('/forget-password').post(forgetPassword);
 router.route('/reset-password').post(resetPassword);
