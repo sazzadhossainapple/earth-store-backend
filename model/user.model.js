@@ -26,10 +26,18 @@ const userSchema = mongoose.Schema(
         image: {
             type: String,
             trim: true,
+            default: null,
         },
         phone: {
             type: String,
             trim: true,
+            default: null,
+        },
+
+        address: {
+            type: String,
+            trim: true,
+            default: null,
         },
 
         role: {
