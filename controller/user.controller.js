@@ -98,9 +98,9 @@ const store = asyncWrapper(async (req, res, next) => {
 
 const update = asyncWrapper(async (req, res, next) => {
     const { email } = req.params;
-    const { name, image, phone } = req.body;
+    const { name, image, phone, address } = req.body;
 
-    const updateData = { name, image, phone };
+    const updateData = { name, image, phone, address };
 
     const result = await updateUserByEmail(email, updateData);
 
