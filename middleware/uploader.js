@@ -1,5 +1,6 @@
 const multer = require('multer');
 const path = require('path');
+const util = require('util');
 
 const storage = multer.diskStorage({
     destination: 'images/',
@@ -9,21 +10,13 @@ const storage = multer.diskStorage({
     },
 });
 
-const uploader = multer({
-    storage,
-    fileFilter: (req, file, cb) => {
-        const supportedImage = /png|jpg|jpeg|webp|svg|pdf|doc|txt/;
-        const extension = path.extname(file.originalname);
-
-        if (supportedImage.test(extension)) {
-            cb(null, true);
-        } else {
-            cb(new Error('Must be a png/jpg/jpeg/webp image'));
-        }
-    },
+const uploadFile = multer({
+    storage: storage,
     limits: {
         fileSize: 5000000, // 5MB limit
     },
-});
+}).single('file');
 
-module.exports = uploader;
+const uploadFileMiddleware = util.promisify(uploadFile);
+
+module.exports = uploadFileMiddleware;
