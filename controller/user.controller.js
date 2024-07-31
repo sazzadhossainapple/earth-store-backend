@@ -14,6 +14,8 @@ const { GeneralError, ValidationError } = require('../utils/error');
 const nodemailer = require('nodemailer');
 const crypto = require('crypto');
 
+const uploadFile = require('../middleware/uploader');
+
 /**
  * get all user
  *
@@ -66,7 +68,9 @@ const index = asyncWrapper(async (req, res, next) => {
  */
 
 const store = asyncWrapper(async (req, res, next) => {
-    const { name, email, image, password, phone, role } = req.body;
+    await uploadFile(req, res);
+
+    const { name, email, password, phone, role } = req.body;
 
     const oldUser = await findUserByEmail(email);
 
@@ -76,7 +80,7 @@ const store = asyncWrapper(async (req, res, next) => {
     const user = await createUserService({
         name,
         email,
-        image,
+        image: req.file ? req.file.filename : '',
         password,
         role,
         phone,
@@ -97,10 +101,17 @@ const store = asyncWrapper(async (req, res, next) => {
  */
 
 const update = asyncWrapper(async (req, res, next) => {
+    await uploadFile(req, res);
     const { email } = req.params;
-    const { name, image, phone, address } = req.body;
 
-    const updateData = { name, image, phone, address };
+    const { name, phone, address } = req.body;
+
+    const updateData = { name, phone, address };
+
+    if (req.file) {
+        const image = req.file.filename;
+        updateData.image = image;
+    }
 
     const result = await updateUserByEmail(email, updateData);
 
