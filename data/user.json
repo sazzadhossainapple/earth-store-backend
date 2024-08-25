@@ -1,12 +1,22 @@
 [
-    {
-        "name": "John Doe",
-        "email": "admin@app.com",
-        "password": "12345678",
-        "phone": "039338888",
-        "image": "",
-        "role": "Admin",
-        "address": "Dhaka",
-        "status": true
-    }
+  {
+    "name": "John Doe",
+    "email": "admin@app.com",
+    "password": "12345678",
+    "phone": "039338888",
+    "image": "",
+    "role": "Admin",
+    "address": "Dhaka",
+    "status": true
+  },
+  {
+    "name": "John Doe",
+    "email": "customer@app.com",
+    "password": "12345678",
+    "phone": "039338888",
+    "image": "",
+    "role": "User",
+    "address": "Dhaka",
+    "status": true
+  }
 ]
